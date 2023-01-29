@@ -16,7 +16,7 @@ const LinkCard = ({title, url, image} : LinkCard) => {
   return (
     <a href={url} rel="noreferrer" target="_blank" className="flex items-center p-1 w-3/4 max-w-3xl rounded-md hover:scale-105 transition-all border border-white mb-3 bg-white bg-opacity-50">
       <div className="flex text-center w-full">
-        <div className="w-10 h-10">
+        <div className="flex items-center justify-center w-10 h-10">
           {
             image ? (
               <Image 
@@ -28,9 +28,8 @@ const LinkCard = ({title, url, image} : LinkCard) => {
               />
             ) : <div className="monogram">JSy</div> 
         }
-
         </div>
-        <h2 className="flex justify-center items-center font-semibold w-full text-gray-700 -ml-10">
+        <h2 className="flex justify-center items-center w-full text-gray-700 text-sm p-2 lg:-m-10">
           {title}
         </h2>
       </div>
