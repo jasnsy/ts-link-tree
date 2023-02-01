@@ -75,7 +75,7 @@ function LinksPage() {
               <Image
                 className="rounded-full"
                 alt={data?.name}
-                src={data?.avatar}
+                src={data?.avatar ? data.avatar : ""}
                 width={100}
                 height={100}
               />
