@@ -1,6 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-// import Link from "next/link";
+import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import { api } from "../utils/api";
@@ -22,24 +22,20 @@ const Home: NextPage = () => {
             </p>
             <div className="mt-6 grid max-w-xl grid-cols-2">
               <div className="col-span-1">
-                <button
+                <Link
                   className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-                  onClick={() => {
-                    window.location.replace(`${window.location.origin}/Monty`)
-                  }}
+                  href="/Monty"
                 >
                   Links Demo
-                </button>
+                </Link>
               </div>
               <div className="col-span-1">
-                <button
+              <Link
                   className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-                  onClick={() => {
-                    window.location.replace(`${window.location.origin}/url`)
-                  }}
+                  href="/url"
                 >
                   ShortUrl Demo
-                </button>
+                </Link>
               </div>
             </div>
             {/* <AuthShowcase /> */}
