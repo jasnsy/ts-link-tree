@@ -15,6 +15,22 @@ const Url: NextPage = () => {
   const [form, setForm] = useState<Form>({ slug: "", url: "" });
   const createSlug = api.urls.createSlug.useMutation();
 
+  const validateUrl = (url: string) => {
+    try {
+      const newUrl = new URL(url)
+
+      return newUrl;
+    } catch (e) {
+      
+      setForm({
+        ...form,
+        url: 'Invalid Url'
+      })
+
+      return false
+    }
+  }
+
   if (createSlug.status === "success") {
     const shortUrl = `${window.location.origin}/url/${form.slug}`;
 
@@ -82,6 +98,7 @@ const Url: NextPage = () => {
 
             if (!form.url) {
               const textArr = document.getElementById("long");
+
               if (textArr) {
                 textArr.className = `${textArr?.className} border-4 border-red-300`;
                 textArr.setAttribute('placeholder', 'URL is required')
@@ -91,7 +108,7 @@ const Url: NextPage = () => {
             if (!form.slug) {
               const slug = cryptoRandomString({
                 length: 6,
-                type: "base64",
+                type: "url-safe",
               });
               setForm({
                 ...form,
@@ -99,7 +116,7 @@ const Url: NextPage = () => {
               });
             }
 
-            if (form.url && form.slug) {
+            if (validateUrl(form.url) && form.slug) {
               createSlug.mutate({ ...form });
             }
           }}
@@ -132,7 +149,7 @@ const Url: NextPage = () => {
                     e.preventDefault();
                     const slug = cryptoRandomString({
                       length: 6,
-                      type: "base64",
+                      type: "url-safe",
                     });
                     setForm({
                       ...form,
