@@ -1,5 +1,8 @@
 # LinkTray
-[Hosted on Vercel](https://links.jasonsy.dev/Monty)
+[Demo is hosted on Vercel](https://links.jasonsy.dev/Monty)
+
+# ShortUrl
+[Demo is hosted on Vercel](https://links.jasonsy.dev/url)
 ## Tech Stack
 
 - [Next.js](https://nextjs.org)
