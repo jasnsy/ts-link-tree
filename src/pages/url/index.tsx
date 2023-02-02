@@ -84,8 +84,7 @@ const Url: NextPage = () => {
               const textArr = document.getElementById("long");
               if (textArr) {
                 textArr.className = `${textArr?.className} border-4 border-red-300`;
-                console.log(textArr.className);
-                textArr.placeholder = `URL is required`;
+                textArr.setAttribute('placeholder', 'URL is required')
               }
             }
 
