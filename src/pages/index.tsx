@@ -20,7 +20,29 @@ const Home: NextPage = () => {
             <p className="text-2xl text-white">
               {hello.data ? hello.data.greeting : "Loading tRPC query..."}
             </p>
-            <AuthShowcase />
+            <div className="mt-6 grid max-w-xl grid-cols-2">
+              <div className="col-span-1">
+                <button
+                  className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
+                  onClick={() => {
+                    window.location.replace(`${window.location.origin}/Monty`)
+                  }}
+                >
+                  Links Demo
+                </button>
+              </div>
+              <div className="col-span-1">
+                <button
+                  className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
+                  onClick={() => {
+                    window.location.replace(`${window.location.origin}/url`)
+                  }}
+                >
+                  ShortUrl Demo
+                </button>
+              </div>
+            </div>
+            {/* <AuthShowcase /> */}
           </div>
       </main>
     </>
