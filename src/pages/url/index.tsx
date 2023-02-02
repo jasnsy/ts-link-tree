@@ -17,68 +17,71 @@ const Url: NextPage = () => {
 
   const validateUrl = (url: string) => {
     try {
-      const newUrl = new URL(url)
+      const newUrl = new URL(url);
 
       return newUrl;
     } catch (e) {
-      
       setForm({
         ...form,
-        url: 'Invalid Url'
-      })
+        url: "Invalid Url",
+      });
 
-      return false
+      return false;
     }
-  }
+  };
 
   if (createSlug.status === "success") {
     const shortUrl = `${window.location.origin}/url/${form.slug}`;
 
     return (
       <>
-        <div className="m-auto mt-10 w-full max-w-2xl rounded-lg bg-white px-5 py-10 shadow dark:bg-gray-800">
-          <div className="mb-6 text-left text-3xl font-light text-gray-800 dark:text-white">
-            Shorten Url
+        <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+          <div className="flex w-full max-w-xl space-x-3">
+            <div className="m-auto mt-10 w-full max-w-2xl rounded-lg bg-white px-5 py-10 shadow dark:bg-gray-800">
+              <div className="mb-6 text-left text-3xl font-light text-gray-800 dark:text-white">
+                Shorten Url
+              </div>
+              <div className="m-auto grid max-w-xl grid-cols-2 gap-4">
+                <div className="col-span-2">
+                  <label className="text-gray-700" htmlFor="short">
+                    <textarea
+                      className="w-full flex-1 appearance-none rounded-lg border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600"
+                      id="short"
+                      disabled={true}
+                      placeholder="ShortUrl will generate here..."
+                      name="short"
+                      rows={3}
+                      cols={40}
+                      value={shortUrl}
+                    ></textarea>
+                  </label>
+                </div>
+                <div className="col-span-2 text-right">
+                  <button
+                    className="w-full rounded-lg  bg-purple-700 py-2 px-4 text-center text-base font-semibold text-white shadow-md transition duration-200 ease-in hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2  focus:ring-offset-indigo-200 "
+                    onClick={(e) => {
+                      e.preventDefault();
+                      copy(`${shortUrl}`);
+                    }}
+                  >
+                    Copy
+                  </button>
+                </div>
+                <div className="col-span-2 text-right">
+                  <button
+                    className="w-full rounded-lg  bg-purple-700 py-2 px-4 text-center text-base font-semibold text-white shadow-md transition duration-200 ease-in hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2  focus:ring-offset-indigo-200 "
+                    onClick={() => {
+                      createSlug.reset();
+                      setForm({ slug: "", url: "" });
+                    }}
+                  >
+                    Reset
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="m-auto grid max-w-xl grid-cols-2 gap-4">
-            <div className="col-span-2">
-              <label className="text-gray-700" htmlFor="short">
-                <textarea
-                  className="w-full flex-1 appearance-none rounded-lg border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600"
-                  id="short"
-                  disabled={true}
-                  placeholder="ShortUrl will generate here..."
-                  name="short"
-                  rows={3}
-                  cols={40}
-                  value={shortUrl}
-                ></textarea>
-              </label>
-            </div>
-            <div className="col-span-2 text-right">
-              <button
-                className="w-full rounded-lg  bg-purple-700 py-2 px-4 text-center text-base font-semibold text-white shadow-md transition duration-200 ease-in hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2  focus:ring-offset-indigo-200 "
-                onClick={(e) => {
-                  e.preventDefault();
-                  copy(`${shortUrl}`);
-                }}
-              >
-                Copy
-              </button>
-            </div>
-            <div className="col-span-2 text-right">
-              <button
-                className="w-full rounded-lg  bg-purple-700 py-2 px-4 text-center text-base font-semibold text-white shadow-md transition duration-200 ease-in hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2  focus:ring-offset-indigo-200 "
-                onClick={() => {
-                  createSlug.reset();
-                  setForm({ slug: "", url: "" });
-                }}
-              >
-                Reset
-              </button>
-            </div>
-          </div>
-        </div>
+        </main>
       </>
     );
   }
@@ -101,7 +104,7 @@ const Url: NextPage = () => {
 
               if (textArr) {
                 textArr.className = `${textArr?.className} border-4 border-red-300`;
-                textArr.setAttribute('placeholder', 'URL is required')
+                textArr.setAttribute("placeholder", "URL is required");
               }
             }
 
