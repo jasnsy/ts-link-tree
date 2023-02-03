@@ -11,7 +11,7 @@ export const urlsRouter = createTRPCRouter({
         },
       });
 
-      return { used: count > 0 }
+      return (count > 0)
     }),
   createSlug: publicProcedure
     .input(z.object({

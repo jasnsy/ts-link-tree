@@ -13,7 +13,16 @@ type Form = {
 
 const Url: NextPage = () => {
   const [form, setForm] = useState<Form>({ slug: "", url: "" });
+  const [testSlug, setTestSlug] = useState("");
   const createSlug = api.urls.createSlug.useMutation();
+  const slugCheck = api.urls.checkSlug.useQuery(
+    { slug: form.slug },
+    {
+      refetchOnReconnect: false, // replacement for enable: false which isn't respected.
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    }
+  );
 
   const validateUrl = (url: string) => {
     try {
@@ -35,7 +44,7 @@ const Url: NextPage = () => {
 
     return (
       <>
-        <main className="flex min-h-screen flex-col lg:items-center lg:justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+        <main className="flex min-h-screen flex-col bg-gradient-to-b from-[#2e026d] to-[#15162c] lg:items-center lg:justify-center">
           <div className="flex w-full max-w-xl space-x-3">
             <div className="m-auto mt-10 w-full max-w-2xl rounded-lg bg-white px-5 py-10 shadow dark:bg-gray-800">
               <div className="mb-6 text-left text-3xl font-light text-gray-800 dark:text-white">
@@ -73,6 +82,7 @@ const Url: NextPage = () => {
                     onClick={() => {
                       createSlug.reset();
                       setForm({ slug: "", url: "" });
+                      setTestSlug("");
                     }}
                   >
                     Reset
@@ -93,11 +103,16 @@ const Url: NextPage = () => {
         <meta name="description" content="ShortUrl by Jason" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex min-h-screen flex-col lg:items-center lg:justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+      <main className="flex min-h-screen flex-col bg-gradient-to-b from-[#2e026d] to-[#15162c] lg:items-center lg:justify-center">
         <form
           className="flex w-full max-w-xl space-x-3"
           onSubmit={(e) => {
             e.preventDefault();
+
+            setForm({
+              ...form,
+              slug: testSlug,
+            });
 
             if (!form.url) {
               const textArr = document.getElementById("long");
@@ -108,18 +123,18 @@ const Url: NextPage = () => {
               }
             }
 
-            if (!form.slug) {
-              const slug = cryptoRandomString({
-                length: 6,
-                type: "url-safe",
-              });
+            if (slugCheck.data) {
+              document
+                .getElementById("slug")
+                ?.setAttribute("placeholder", "Slug already exists, try again");
+              setTestSlug("");
               setForm({
                 ...form,
-                slug,
+                slug: "",
               });
             }
 
-            if (validateUrl(form.url) && form.slug) {
+            if (validateUrl(form.url) && !slugCheck.data) {
               createSlug.mutate({ ...form });
             }
           }}
@@ -134,15 +149,12 @@ const Url: NextPage = () => {
                   type="text"
                   onChange={(e) => {
                     e.preventDefault();
-                    setForm({
-                      ...form,
-                      slug: e.target.value,
-                    });
+                    setTestSlug(e.target.value);
                   }}
                   className="w-full flex-1 appearance-none rounded-lg border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600"
                   id="slug"
                   placeholder="Desired Slug"
-                  value={form.slug}
+                  value={testSlug}
                 ></input>
               </div>
               <div className="col-span-1 text-right">
@@ -158,6 +170,7 @@ const Url: NextPage = () => {
                       ...form,
                       slug,
                     });
+                    setTestSlug(slug);
                   }}
                 >
                   Random
@@ -185,6 +198,12 @@ const Url: NextPage = () => {
               <div className="col-span-2 text-right">
                 <button
                   type="submit"
+                  onClick={() => {
+                    setForm({
+                      ...form,
+                      slug: testSlug,
+                    });
+                  }}
                   className="w-full rounded-lg  bg-purple-700 py-2 px-4 text-center text-base font-semibold text-white shadow-md transition duration-200 ease-in hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2  focus:ring-offset-indigo-200 "
                 >
                   Generate
