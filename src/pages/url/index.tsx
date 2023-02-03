@@ -35,7 +35,7 @@ const Url: NextPage = () => {
 
     return (
       <>
-        <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+        <main className="flex min-h-screen flex-col lg:items-center lg:justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
           <div className="flex w-full max-w-xl space-x-3">
             <div className="m-auto mt-10 w-full max-w-2xl rounded-lg bg-white px-5 py-10 shadow dark:bg-gray-800">
               <div className="mb-6 text-left text-3xl font-light text-gray-800 dark:text-white">
@@ -50,13 +50,13 @@ const Url: NextPage = () => {
                       disabled={true}
                       placeholder="ShortUrl will generate here..."
                       name="short"
-                      rows={3}
+                      rows={1}
                       cols={40}
                       value={shortUrl}
                     ></textarea>
                   </label>
                 </div>
-                <div className="col-span-2 text-right">
+                <div className="col-span-1 text-right">
                   <button
                     className="w-full rounded-lg  bg-purple-700 py-2 px-4 text-center text-base font-semibold text-white shadow-md transition duration-200 ease-in hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2  focus:ring-offset-indigo-200 "
                     onClick={(e) => {
@@ -67,7 +67,7 @@ const Url: NextPage = () => {
                     Copy
                   </button>
                 </div>
-                <div className="col-span-2 text-right">
+                <div className="col-span-1 text-right">
                   <button
                     className="w-full rounded-lg  bg-purple-700 py-2 px-4 text-center text-base font-semibold text-white shadow-md transition duration-200 ease-in hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2  focus:ring-offset-indigo-200 "
                     onClick={() => {
@@ -93,7 +93,7 @@ const Url: NextPage = () => {
         <meta name="description" content="ShortUrl by Jason" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+      <main className="flex min-h-screen flex-col lg:items-center lg:justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
         <form
           className="flex w-full max-w-xl space-x-3"
           onSubmit={(e) => {
